@@ -1,0 +1,32 @@
+6.Get all menus with their associated categories:
+SELECT Menus.MenuName, Categories.CategoryName
+FROM Menus
+LEFT JOIN Categories ON Menus.CategoryID = Categories.CategoryID;
+This query retrieves all menus along with their associated categories.
+
+7.Get the average preparation time for items in a specific category:
+SELECT Categories.CategoryName, AVG(Items.PreparationTime) AS AvgPreparationTime
+FROM Categories
+LEFT JOIN Items ON Categories.CategoryID = Items.CategoryID
+WHERE Categories.CategoryID = 2
+GROUP BY Categories.CategoryName;
+This query calculates the average preparation time for items in a specific category (in this case, CategoryID 2).
+
+8.Get the latest created menu:
+SELECT MenuName, CreationDate
+FROM Menus
+ORDER BY CreationDate DESC
+LIMIT 1;
+This query retrieves the most recently created menu.
+
+9.Get all items with prices within a specified range:
+SELECT ItemName, Price
+FROM Items
+WHERE Price BETWEEN 5.00 AND 10.00;
+This query lists all items with prices between $5.00 and $10.00.
+
+10.Get the menu details along with the number of items in each menu:
+SELECT Menus.MenuName, COUNT(MenuItems.ItemID) AS NumberOfItems
+FROM Menus
+LEFT JOIN MenuItems ON Menus.MenuID = MenuItems.MenuID
+GROUP BY Menus.MenuName;
