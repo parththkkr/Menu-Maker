@@ -1,0 +1,87 @@
+-- MySQL dump 10.13  Distrib 8.0.35, for Linux (x86_64)
+--
+-- Host: localhost    Database: MenuMakers
+-- ------------------------------------------------------
+-- Server version	8.0.35-0ubuntu0.22.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Dumping data for table `Categories`
+--
+
+LOCK TABLES `Categories` WRITE;
+/*!40000 ALTER TABLE `Categories` DISABLE KEYS */;
+INSERT INTO `Categories` VALUES (1,'Appetizers'),(2,'Main Courses'),(3,'Desserts');
+/*!40000 ALTER TABLE `Categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `Ingredients`
+--
+
+LOCK TABLES `Ingredients` WRITE;
+/*!40000 ALTER TABLE `Ingredients` DISABLE KEYS */;
+INSERT INTO `Ingredients` VALUES (1,'Flour',500),(2,'Beef Patty',100),(3,'Vanilla',200),(4,'Lettuce',300),(5,'Tomato',200),(6,'Mozzarella Cheese',150),(7,'Cocoa Powder',300);
+/*!40000 ALTER TABLE `Ingredients` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `ItemIngredients`
+--
+
+LOCK TABLES `ItemIngredients` WRITE;
+/*!40000 ALTER TABLE `ItemIngredients` DISABLE KEYS */;
+INSERT INTO `ItemIngredients` VALUES (1,1,1),(2,2,2),(3,3,3),(4,4,4),(5,4,5),(6,5,5),(7,5,6),(8,6,7);
+/*!40000 ALTER TABLE `ItemIngredients` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `Items`
+--
+
+LOCK TABLES `Items` WRITE;
+/*!40000 ALTER TABLE `Items` DISABLE KEYS */;
+INSERT INTO `Items` VALUES (1,'Pancakes','Fluffy pancakes',5.99,15,1),(2,'Burger','Juicy beef burger',8.99,20,2),(3,'Ice Cream','Vanilla ice cream',4.99,NULL,3),(4,'Salad','Fresh garden salad',7.49,10,1),(5,'Pizza','Margherita pizza',11.99,30,2),(6,'Chocolate Cake','Rich chocolate cake',6.99,NULL,3);
+/*!40000 ALTER TABLE `Items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `MenuItems`
+--
+
+LOCK TABLES `MenuItems` WRITE;
+/*!40000 ALTER TABLE `MenuItems` DISABLE KEYS */;
+INSERT INTO `MenuItems` VALUES (1,1,1),(2,2,2),(3,3,3),(4,1,4),(5,2,5),(6,3,6);
+/*!40000 ALTER TABLE `MenuItems` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `Menus`
+--
+
+LOCK TABLES `Menus` WRITE;
+/*!40000 ALTER TABLE `Menus` DISABLE KEYS */;
+INSERT INTO `Menus` VALUES (1,'Breakfast Menu','Delicious breakfast options',10.99,1,'2024-01-30',1),(2,'Lunch Menu','Tasty lunch options',12.99,1,'2024-01-30',2),(3,'Dinner Menu','Satisfying dinner options',15.99,1,'2024-01-30',2);
+/*!40000 ALTER TABLE `Menus` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-01-30  9:17:13
