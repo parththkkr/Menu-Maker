@@ -1,34 +1,58 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h1>Cart Items</h1>
-{% if total_items > 0 %}
-<ul>
-  {% for item in cart_items %}
-    <li>
-      <strong>{{ item.itemObj.ItemName }}</strong> {{ item.quantity }} X ${{ item.itemObj.Price }}
-    </li>
-  {% endfor %}
-</ul>
-<p id="total_items">Total Items: {{ total_items }}</p>
-
-<p id="total_cost">Total Cost: ${{ total_cost }}</p>
-
-
-<form id="discount-form" data-total-cost="{{ total_cost }}">
-  <label for="discount_code">Discount Code:</label>
-  <input type="text" id="discount_code" name="discount_code" required>
-  <button type="submit" id="apply_discount_btn">Apply Discount</button>
-</form>
-
-{% else %}
-<p>Your cart is empty.</p>
-{% endif %}
+<div class="container mt-4 " style="height: 37.4vh;">
+  <h1 class="mb-4">Cart Items</h1>
+  <div class="row">
+    <div class="col-md-8">
+      {% if total_items > 0 %}
+      <ul class="list-group">
+        {% for item in cart_items %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>{{ item.itemObj.ItemName }}</strong> {{ item.quantity }} X ${{ item.itemObj.Price }}
+          </div>
+          <div>
+            <form action="{% url 'update_cart_item' item.id %}" method="post" style="display: inline-block;">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="decrease">
+              <button type="submit" class="btn btn-secondary btn-sm">-</button>
+            </form>
+            <form action="{% url 'update_cart_item' item.id %}" method="post" style="display: inline-block;">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="increase">
+              <button type="submit" class="btn btn-secondary btn-sm">+</button>
+            </form>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      <p class="mt-4"><strong>Total Items:</strong> {{ total_items }}</p>
+      <p id="total_cost"><strong>Total Cost:</strong> ${{ total_cost }}</p>
+      {% else %}
+      <p>Your cart is empty.</p>
+      {% endif %}
+    </div>
+    <div class="col-md-4">
+      {% if user.is_authenticated %}
+      <form id="discount-form" data-total-cost="{{ total_cost }}">
+        <div class="form-group">
+          <label for="discount_code">Discount Code:</label>
+          <input type="text" class="form-control" id="discount_code" name="discount_code" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Apply Discount</button>
+      </form>
+      {% else %}
+      <p>Please <a href="{% url 'login' %}">login</a> to apply discount.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('discount-form');
   const discountInput = document.getElementById('discount_code');
-  const applyDiscountBtn = document.getElementById('apply_discount_btn');
   const totalCost = parseFloat(form.dataset.totalCost); // Parse the total cost from the data attribute
 
   form.addEventListener('submit', function(event) {
@@ -44,7 +68,6 @@ document.addEventListener('DOMContentLoaded', function() {
       alert(`Discount applied successfully! You saved $${discountAmount.toFixed(2)}. Your new total is $${discountedTotal.toFixed(2)}.`);
     } else {
       alert('Invalid discount code. Please try again.');
-      document.getElementById('total_cost').textContent = `Total Cost: $${totalCost.toFixed(2)}`;
     }
   });
 });

@@ -1,17 +1,14 @@
+from .models import User
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
-from .models import OrderedItem
 
-class OrderForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        items = kwargs.pop('items')
-        super(OrderForm, self).__init__(*args, **kwargs)
+class UserRegistrationForm(UserCreationForm):
+    # Define any additional fields if needed
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
 
-        for item in items:
-            self.fields[f'item_{item.id}'] = forms.IntegerField(label=item.itemObj.name, min_value=1, initial=0)
+class UserLoginForm(forms.Form):
+    username = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control', 'style': 'width: 300px;'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'style': 'width: 300px;'}))
 
-    def clean(self):
-        cleaned_data = super().clean()
-        total_quantity = sum(cleaned_data.get(key, 0) for key in cleaned_data.keys() if key.startswith('item_'))
-
-        if total_quantity == 0:
-            raise forms.ValidationError("Please select at least one item.")
